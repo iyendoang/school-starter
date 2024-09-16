@@ -9,10 +9,12 @@ class Application extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
-
+    protected $fillable = ['id', 'name'];
+    protected $primaryKey = 'id';
+    public $incrementing = false;
+    protected $keyType = 'string';
     public function tokens()
     {
-        return $this->hasMany(Token::class);
+        return $this->hasMany(Token::class, 'application_id', 'id');
     }
 }

@@ -15,8 +15,8 @@ class ApplicationSeeder extends Seeder
     public function run()
     {
         DB::table('applications')->insert([
-            ['name' => 'Application B'],
-            ['name' => 'Application C'],
+            ['id' => 'SIDOEL', 'name' => 'Application A'],
+            ['id' => 'SIDOEL-2', 'name' => 'Application B'],
         ]);
     }
 }

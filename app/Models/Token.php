@@ -11,24 +11,23 @@ class Token extends Model
     use HasFactory;
 
     protected $fillable = [
-        'token_access', // Ensure this matches the database schema
+        'id',
+        'token_access',
         'application_id',
         'expired_at',
         'status',
-        'school_id' // Ensure this matches the database schema
+        'school_id'
     ];
 
     protected $casts = [
         'expired_at' => 'datetime',
     ];
 
-    // Define the relationship with Application model
     public function application()
     {
-        return $this->belongsTo(Application::class);
+        return $this->belongsTo(Application::class, 'application_id', 'id');
     }
 
-    // Define the relationship with School model
     public function school()
     {
         return $this->belongsTo(School::class);

@@ -23,7 +23,7 @@ class TokenController extends Controller
         // Validate the incoming request
         $request->validate([
             'npsn' => 'required|exists:schools,npsn',
-            'application_id' => 'required|exists:applications,id',
+            'application_id' => 'required',
             'token_access' => 'required|string',
         ]);
 

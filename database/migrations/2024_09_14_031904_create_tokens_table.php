@@ -18,12 +18,15 @@ class CreateTokensTable extends Migration
             $table->string('token_access');
             $table->timestamp('expired_at')->nullable();
             $table->boolean('status')->default(true);
-            $table->foreignId('application_id')->constrained()->onDelete('cascade');
+            $table->string('application_id');
+            $table->foreign('application_id')->references('id')->on('applications')->onDelete('cascade');
             $table->foreignId('school_id')->constrained()->onDelete('cascade');
             $table->unique(['application_id', 'school_id']);
             $table->timestamps();
         });
     }
+
+
     /**
      * Reverse the migrations.
      *

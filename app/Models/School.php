@@ -12,8 +12,8 @@ class School extends Model
     protected $fillable = ['name', 'npsn'];
 
     // Define the one-to-many relationship with Token model
-    public function tokens()
-    {
-        return $this->hasMany(Token::class);
-    }
+   public function tokens()
+{
+    return $this->hasMany(Token::class, 'school_id', 'id');
+}
 }

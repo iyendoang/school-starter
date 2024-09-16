@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Apps;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Apps\SchoolResource;
 use App\Models\School;
+use App\Models\Token;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
@@ -26,10 +28,11 @@ class SchoolController extends Controller
     }
     public function index()
     {
-        // Get all schools data
         $schools = School::query()
-            ->with(['tokens.application']) // Eager load tokens and their applications
-            ->when(request()->search, fn($query) => $query->where('name', 'like', '%' . request()->search . '%'))
+            ->with(['tokens.application'])
+            ->when(request()->search, function ($query) {
+                $query->where('name', 'like', '%' . request()->search . '%');
+            })
             ->select('id', 'name', 'npsn')
             ->latest()
             ->paginate(7)
@@ -37,6 +40,7 @@ class SchoolController extends Controller
 
         // Transform the data using the SchoolResource
         $schoolsResource = SchoolResource::collection($schools);
+
         // Return the transformed data
         return inertia('Apps/Schools/Index', [
             'schools' => $schoolsResource->additional([
@@ -47,6 +51,7 @@ class SchoolController extends Controller
             ])
         ]);
     }
+
 
     public function create()
     {

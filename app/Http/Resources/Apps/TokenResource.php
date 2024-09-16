@@ -18,7 +18,7 @@ class TokenResource extends JsonResource
             'id' => $this->id,
             'school_name' => $this->school->name,
             'school_npsn' => $this->school->npsn,
-            'application_id' => $this->application_id,
+            'application_id' => $this->application->id,
             'application_name' => $this->application->name,
             'token_access' => $this->token_access,
             'expired_at' => $this->expired_at ? $this->expired_at->format('Y-m-d') : null,
